@@ -1,0 +1,9 @@
+{
+  "Name": "FreeFlow",
+  "Version": "0.1.0.1",
+  "Id": "Aperion.FreeFlow",
+  "MinimumGameVersion": "0.6.1.0",
+  "Description": "A simple mod that removes the flow restriction on waterfalls.\n\nThis will allow much more water to be moved through a narrow channel across multiple levels.",
+  "RequiredMods": [
+  ]
+}
