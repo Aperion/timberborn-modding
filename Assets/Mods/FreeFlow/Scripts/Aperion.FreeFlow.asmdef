@@ -1,4 +1,5 @@
 {
   "name": "Aperion.FreeFlow",
-  "autoReferenced": false
+  "autoReferenced": false,
+  "_allowUnsafeCode": true
 }

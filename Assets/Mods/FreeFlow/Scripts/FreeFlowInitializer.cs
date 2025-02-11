@@ -7,12 +7,10 @@ using UnityEngine;
 namespace Mods.FreeFlow.Scripts {
   public class FreeFlowInitializer : ILoadableSingleton {
 
-    private readonly WaterSimulationSettings _waterSimulationSettings;
     private Harmony _harmony = new("Aperion.Mods.FreeFlow");
 
-    public FreeFlowInitializer(WaterSimulationSettings waterSimulationSettings) {
-      _waterSimulationSettings = waterSimulationSettings;
-      
+    public FreeFlowInitializer() {
+      Debug.Log("Aperion.FreeFlow: initializer");
       var type = AccessTools.TypeByName("Timberborn.WaterSystem.WaterSimulator");
       var wcType = AccessTools.TypeByName("Timberborn.WaterSystem.WaterColumn");
       Debug.unityLogger.Log($"Aperion.FreeFlow: {type}");
@@ -35,8 +33,7 @@ namespace Mods.FreeFlow.Scripts {
     }
 
     public void Load() {
-      Debug.Log("Aperion.FreeFlow: Setting max water fall to infinity");
-      // _waterSimulationSettings.MaxWaterfallOutflow = float.PositiveInfinity;
+      Debug.Log("Aperion.FreeFlow: load complete");
     }
   }
 }

@@ -25,7 +25,7 @@ namespace Mods.FreeFlow.Scripts
             Debug.Log("Aperion.FreeFlow: PatchGetOutFlowTranspiler");
             var instList = instructions.ToList();
             var wcType = AccessTools.TypeByName("Timberborn.WaterSystem.WaterColumn");
-            
+            const int waterfallOutflowOperand = 18;
             for (var i = 0; i < instList.Count; ++i)
             {
                 var instruction = instList[i];
@@ -33,13 +33,20 @@ namespace Mods.FreeFlow.Scripts
                 
                 if (instruction.opcode == OpCodes.Ldfld && GetOperandName(instruction) == "MaxWaterfallOutflow")
                 {
-                     // this is the start of the patch pattern 
+                     // this is the start of the patch pattern
+                     // we insert code after maxWaterfallOutflow has been set 
                     // ldfld        float32 Timberborn.WaterSystem.WaterSimulatorSettings::MaxWaterfallOutflow
                     // stloc.s      waterfallOutflow
+                    
                     Debug.Log($"Aperion.FreeFlow: Start of patch pattern: {instList[i]}, ");
                     yield return instList[++i];
-                    yield return new(OpCodes.Ldarg_1);
-                    yield return new(OpCodes.Ldfld, wcType.GetField("WaterDepth"));
+                    // Water get incoming water column depth
+                    // flow water based on input height
+                    // yield return new(OpCodes.Ldarg_1);
+                    // yield return new(OpCodes.Ldfld, wcType.GetField("WaterDepth"));
+                    yield return new(OpCodes.Ldc_R4, float.PositiveInfinity);
+                    
+                    
                     yield return new(OpCodes.Ldloc_S, 18);
                     yield return new(OpCodes.Mul);
                     yield return new(OpCodes.Stloc_S, 18);
